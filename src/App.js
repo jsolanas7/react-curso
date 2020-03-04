@@ -1,24 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Header from './Components/Header'
+import Footer from './Components/Footer';
+import Product from './Components/Product';
+import Carrito from './Components/Carrito';
+import Pokemon from './Components/Pokemon';
+import './Components/style.css'
 
 function App() {
+  const [products, setProducts] = useState([
+    {
+      id: 1,
+      name: 'Producto 1'
+    },
+    {
+      id: 2,
+      name: 'Producto 2 '
+    },
+    {
+      id: 3,
+      name: 'Producto 3'
+    },
+  ])
+
+  const [carrito, addProduct] = useState([]);
+
+  const showClick = (title) => {
+    console.log(title)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <h1>Listas</h1>
+      <div className="container">
+        <div>
+        {products.map(item => {
+          return (
+            <Product
+              name={item.name}
+              key={item.id}
+              id={item.id}
+              products={products}
+              carrito={carrito}
+              addProduct={addProduct}
+            />
+          )
+        })}
+        </div>
+          <Carrito
+            carrito={carrito}
+            addProduct= {addProduct}
+          />
+      </div>
+      <Pokemon/>
+      <Footer
+        footerText='Todos los derechos reservados &copy;'
+      />
     </div>
   );
 }
